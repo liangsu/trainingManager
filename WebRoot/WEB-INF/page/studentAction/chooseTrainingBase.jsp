@@ -23,17 +23,17 @@
     <section class="content">
       <div class="box" style="margin-bottom:0;padding-bottom:1px;">
         <div class="box-header"></div>
-        <form class="form-horizontal" action="${rootPath }/student_chooseTrainingBase.action" method="post">
+        <form id="areaForm" class="form-horizontal" action="${rootPath }/student_chooseTrainingBase.action" method="post" onsubmit="return false;">
           <input type="hidden" name="id" value="${model.id }">
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-2 control-label">实习去向：</label>
-              <div class="col-sm-2">
+              <label class="col-sm-3 control-label">实习去向：</label>
+              <div class="col-sm-3">
                 <label class="radio-inline">
 				  <input type="radio" name="trainingType" value="0" ${model.trainingType eq 0 ? 'checked="checked"' : '' }> 集中实习
 				</label>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <label class="radio-inline">
 				  <input type="radio" name="trainingType" value="1" ${model eq null ? 'checked="checked"' : (model.trainingType eq 1 ? 'checked="checked"' : '')  } >自主实习 
 				</label>
@@ -41,7 +41,7 @@
             </div>
             
             <div class="form-group jizhong">
-              <label for="tid" class="col-sm-2 control-label">实习基地：</label>
+              <label for="tid" class="col-sm-3 control-label">实习基地：</label>
               <div class="col-sm-4">
                 <select class="" name="tid" id="tid">
                 	<c:forEach items="${trainingBases }" var="tb">
@@ -53,44 +53,44 @@
             </div>
             
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地名称：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业名称：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="name" name="name" value="" placeholder="实习基地名称，如：xxx有限公司">
+                <input type="text" class="form-control" id="name" name="freeTrainingBase.name" value="${freeTrainingBase.name }" placeholder="实习企业名称，如：xxx有限公司">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地地址：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业地址：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="address" name="address" value="" placeholder="实习基地地址，如：xx省xx市xx街道xx号">
+                <input type="text" class="form-control" id="address" name="freeTrainingBase.address" value="${freeTrainingBase.address }" placeholder="实习企业地址，如：xx省xx市xx街道xx号">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地联系人：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业联系人：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="linkerName" name="linkerName" value="" placeholder="实习基地联系人，如：小明">
+                <input type="text" class="form-control" id="linkerName" name="freeTrainingBase.linkerName" value="${freeTrainingBase.linkerName }" placeholder="实习企业联系人，如：小明">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地联系电话：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业联系电话：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="linkerPhone" name="linkerPhone" value="" placeholder="实习基地联系电话，如：15520110823">
+                <input type="text" class="form-control" id="linkerPhone" name="freeTrainingBase.linkerPhone" value="${freeTrainingBase.linkerPhone }" placeholder="实习企业联系电话，如：15520110823">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地指导老师：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业指导老师：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="teacherName" name="teacherName" value="" placeholder="实习基地指导老师，如：王五">
+                <input type="text" class="form-control" id="teacherName" name="freeTrainingBase.teacherName" value="${freeTrainingBase.teacherName }" placeholder="实习企业指导老师，如：王五">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
             <div class="form-group zizhu">
-              <label for="address" class="col-sm-2 control-label">实习基地指导老师电话：</label>
+              <label for="address" class="col-sm-3 control-label">实习企业指导老师电话：</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="teacherPhone" name="teacherPhone" value="" placeholder="实习基地指导老师电话，如：15520110823">
+                <input type="text" class="form-control" id="teacherPhone" name="freeTrainingBase.teacherPhone" value="${freeTrainingBase.teacherPhone }" placeholder="实习企业指导老师电话，如：15520110823">
               </div>
 			  <div class="col-sm-2"></div>
             </div>
@@ -100,7 +100,7 @@
           <div class="box-footer">
 		    <div class="col-sm-offset-2 col-md-2" style="padding-left:0px;">
 			  <button type="reset" class="btn btn-default">重置</button>
-			  <button type="submit" class="btn btn-info pull-right">保存</button>
+			  <button onclick="submitForm();" class="btn btn-info pull-right">保存</button>
 			</div>
           </div>
         </form>
@@ -112,23 +112,6 @@
 </div>
 <!-- ./wrapper -->
 <%@ include file="../public/js.jspf" %>
-<script type="text/javascript">
-$(function(){
-	$(":radio").click(function(){
-		var val = $(this).val();
-		if(val == 0){
-			$(".zizhu").hide();
-			$(".jizhong").show();
-		}else if(val == 1){
-			$(".zizhu").show();
-			$(".jizhong").hide();
-		}
-	});
-	
-	$("input[name='trainingType']:checked").click();
-	
-});
-
-</script>
+<script src="${rootPath }/js/student.chooseTrainingBase.js"></script>
 </body>
 </html>

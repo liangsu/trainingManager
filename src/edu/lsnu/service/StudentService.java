@@ -19,9 +19,9 @@ public interface StudentService extends DaoSupport<Student>{
 	PageBean getPage(int currentPage,int pageSize, int grade, String keyword, String sortField, boolean asc);
 
 	/**
-	 * 选择实习实训基地（修改Student的tid）
+	 * 选择实习实训基地（修改Student的tid,trainingType）
 	 * @param model
 	 */
-	void updateTid(Student model);
+	void chooseBase(Student model);
 
 }

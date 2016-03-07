@@ -13,6 +13,7 @@
 	<mapping class="edu.lsnu.domain.Menu" />
 	<mapping class="edu.lsnu.domain.Role" />
 	<mapping class="edu.lsnu.domain.BasicSettings" />
+	<mapping class="edu.lsnu.domain.FreeTrainingBase" />
 
 </session-factory>
 </hibernate-configuration>

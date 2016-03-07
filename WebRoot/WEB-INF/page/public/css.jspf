@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-pageContext.setAttribute("rootPath", "http://localhost:8088/trainingManager");
+pageContext.setAttribute("rootPath", "http://localhost:8080/trainingManager");
 %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

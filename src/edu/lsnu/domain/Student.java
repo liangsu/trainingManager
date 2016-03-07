@@ -53,6 +53,7 @@ public class Student {
 	
 	/*实习基地*/
 	private TrainingBase trainingBase;
+	private FreeTrainingBase freeTrainingBase;
 	
 	@Id 
 	@GeneratedValue(generator = "paymentableGenerator") 
@@ -149,6 +150,13 @@ public class Student {
 	}
 	public void setTrainingBase(TrainingBase trainingBase) {
 		this.trainingBase = trainingBase;
+	}
+	@Transient
+	public FreeTrainingBase getFreeTrainingBase() {
+		return freeTrainingBase;
+	}
+	public void setFreeTrainingBase(FreeTrainingBase freeTrainingBase) {
+		this.freeTrainingBase = freeTrainingBase;
 	}
 	
 }

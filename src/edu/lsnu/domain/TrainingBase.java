@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 实训基地
+ * 集中实习实训基地
  * @author liangsu
  * 
  */

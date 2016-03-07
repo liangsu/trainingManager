@@ -15,10 +15,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import edu.lsnu.domain.AdminUser;
-import edu.lsnu.domain.Student;
 import edu.lsnu.service.AdminUserService;
 import edu.lsnu.service.BasicSettingsService;
+import edu.lsnu.service.FreeTrainingBaseService;
 import edu.lsnu.service.LoginService;
 import edu.lsnu.service.MenuService;
 import edu.lsnu.service.RoleService;
@@ -66,6 +65,8 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	protected LoginService loginService;
 	@Resource
 	protected BasicSettingsService basicSettingsService;
+	@Resource
+	protected FreeTrainingBaseService freeTrainingBaseService;
 	// ========================== 分页信息 ==========================
 	protected int currentPage = 1;
 	protected int pageSize = 3;
@@ -105,6 +106,11 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 			}
 		});
 		printJson(msg);
+	}
+	// ========================== 取值 ==========================
+	public String getStrParam(String key,String defaultVal){
+		String retVal = ServletActionContext.getRequest().getParameter(key);
+		return retVal == null ? retVal : defaultVal;
 	}
 	
 	// ========================== 其它 ==========================

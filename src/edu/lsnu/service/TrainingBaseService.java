@@ -23,5 +23,7 @@ public interface TrainingBaseService extends DaoSupport<TrainingBase>{
 	 */
 	int getBeginYear();
 
+	void updateNum(int id, int num);
+
 	/*List<TrainingBase> getByTrainingDate(TrainingDate trainingDate);*/
 }

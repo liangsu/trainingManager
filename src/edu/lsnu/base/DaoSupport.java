@@ -14,7 +14,7 @@ public interface DaoSupport<T> {
 	
 	void delete(Serializable id);
 	
-	void add(T entity);
+	int add(T entity);
 
 	void update(T entity);
 	

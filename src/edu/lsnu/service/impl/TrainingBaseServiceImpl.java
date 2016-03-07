@@ -48,4 +48,15 @@ public class TrainingBaseServiceImpl extends DaoSupportImpl<TrainingBase>
 		return year;
 	}
 
+	@Override
+	public void updateNum(int id, int num) {
+		TrainingBase tb = super.get(id);
+		if(tb != null){
+			int oldNum = tb.getNum();
+			oldNum = (oldNum + num) > 0 ? (oldNum + num) : 0;//如果相加后小于0，则等于0
+			tb.setNum(oldNum);
+			super.update(tb);
+		}
+	}
+
 }

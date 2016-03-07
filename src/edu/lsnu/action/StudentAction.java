@@ -4,15 +4,19 @@ import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 
 import com.opensymphony.xwork2.ActionContext;
 
 import edu.lsnu.base.BaseAction;
+import edu.lsnu.domain.FreeTrainingBase;
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.Student;
 import edu.lsnu.domain.TrainingBase;
 import edu.lsnu.service.StudentService;
 import edu.lsnu.utils.Code;
+import edu.lsnu.utils.StringUtil;
+import edu.lsnu.utils.ValidateUtil;
 import edu.lsnu.vo.TrainingDate;
 
 @Controller
@@ -59,9 +63,14 @@ public class StudentAction extends BaseAction<Student> {
 		//1.获取登录用户信息
 		Student user = (Student) getUser();
 		model = studentService.get(user.getId());
-		//2.获取今年的实训时间
+		//2.如果是自主实习，获取自主实习企业信息
+		if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
+			FreeTrainingBase freeTrainingBase = freeTrainingBaseService.get(model.getTid());
+			putContext("freeTrainingBase", freeTrainingBase);
+		}
+		//3.获取今年的实训时间
 		TrainingDate trainingDate = basicSettingsService.getTrainingDate();
-		//3.根据时间获取实习实训基地信息
+		//4.根据时间获取实习实训基地信息
 		if(trainingDate != null && trainingDate.containsNowDate()){
 			List<TrainingBase> trainingBases = trainingBaseService.getList("from TrainingBase tb where tb.addTime between ? and ?", trainingDate.getStartDate(),trainingDate.getEndDate());
 			putContext("trainingBases", trainingBases);
@@ -70,16 +79,49 @@ public class StudentAction extends BaseAction<Student> {
 	}
 	
 	/** 学生选择基地 */
-	public String chooseTrainingBase() throws Exception{
-		//集中实训
-		if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE){
-			studentService.updateTid(model);
-		}
-		//自主实训
-		else if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
+	public void chooseTrainingBase() {
+		String msg = "";
+		try {
+			//1.校验字段
+			if(model.getTrainingType() != 0 && model.getTrainingType() != 1){
+				msg += "实习类型不能为空,";
+			}
+			if(model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE && model.getTid() <= 0){
+				msg += "请选择实习基地,";
+			}
+			//1.2自主实习校验
+			if(model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getName(), "实习企业名称不能为空,");
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getAddress(), "实习企业地址不能为空,");
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getLinkerName(), "实习企业联系人不能为空,");
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getLinkerPhone(), "实习企业联系电话不能为空,");
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getTeacherName(), "实习企业指导老师不能为空,");
+				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getTeacherPhone(), "实习企业指导老师电话不能为空,");
+			}
+			//1.3校验失败
+			if(msg.length() > 0){
+				msg = msg.substring(0, msg.length() - 1);
+				printJson(msg);
+				return;
+			}
 			
+			//2.保存到数据库
+			//集中实训
+			if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE){
+				studentService.chooseBase(model);
+			}
+			//自主实训
+			else if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
+				int fid = freeTrainingBaseService.AddandGet(model.getFreeTrainingBase());
+				model.setTid(fid);
+				studentService.chooseBase(model);
+			}
+			msg = "ok";
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
 		}
-		return "toChooseTrainingBaseUI";
+		printJson(msg);
 	}
 	
 	// ---
@@ -101,5 +143,4 @@ public class StudentAction extends BaseAction<Student> {
 	public void setGradeYear(int gradeYear) {
 		this.gradeYear = gradeYear;
 	}
-	
 }

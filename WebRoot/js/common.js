@@ -1,1 +1,1 @@
-var rootPath = "http://localhost:8088/trainingManager";
+var rootPath = "http://localhost:8080/trainingManager";

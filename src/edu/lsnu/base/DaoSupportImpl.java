@@ -58,8 +58,8 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T> {
 	}
 
 	@Override
-	public void add(T entity) {
-		getSession().save(entity);
+	public int add(T entity) {
+		return (Integer) getSession().save(entity);
 	}
 
 	@Override
