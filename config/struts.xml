@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+	<!-- 学生用户页面 -->
+	<package name="front" namespace="/" extends="struts-default">
+		<!-- 登陆模块 -->
+		<action name="login_*" class="loginAction" method="{1}">
+			<result name="loginUI">/WEB-INF/page/loginAction/login.jsp</result>
+			<result name="toLoginUI" type="redirectAction">login_loginUI</result>
+		</action>
+		<!-- 验证码 -->
+		<action name="validateImage" class="validateImageAction">
+		</action>
+		
+		<!-- 首页模块 -->
+		<action name="home_*" class="homeAction" method="{1}">
+			<result name="index">/WEB-INF/page/index.jsp</result>
+		</action>
+		
+		<!-- 系统设置模块 -->
+		<action name="basicSettings_*" class="basicSettingsAction" method="{1}">
+			<result name="setUI">/WEB-INF/page/basicSettingsAction/setUI.jsp</result>
+			<result name="toSetUI" type="redirectAction">basicSettings_setUI</result>
+		</action>
+		<!-- 菜单模块 -->
+		<action name="menu_*" class="menuAction" method="{1}">
+			<result name="list">/WEB-INF/page/menuAction/list.jsp</result>
+			<result name="toList" type="redirectAction">menu_list</result>
+		</action>
+		<!-- 角色模块 -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/page/roleAction/list.jsp</result>
+			<result name="toList" type="redirectAction">role_list</result>
+			<result name="manageRoleUI">/WEB-INF/page/roleAction/manageRole.jsp</result>
+			<result name="toManageRoleUI" type="redirectAction">
+				<param name="actionName">role_manageRoleUI</param>
+				<param name="id">${model.id}</param>
+			</result>
+		</action>
+	
+		<action name="student_*" class="studentAction" method="{1}">
+			<result name="loginUI">/WEB-INF/page/studentAction/loginUI.jsp</result>
+			<result name="list">/WEB-INF/page/studentAction/list.jsp</result>
+			<result name="editUI">/WEB-INF/page/studentAction/edit.jsp</result>
+			<result name="toList" type="redirectAction">student_list</result>
+			
+			<result name="infoUI">/WEB-INF/page/studentAction/info.jsp</result>
+			<result name="chooseTrainingBaseUI">/WEB-INF/page/studentAction/chooseTrainingBase.jsp</result>
+			<result name="toChooseTrainingBaseUI" type="redirectAction">student_chooseTrainingBaseUI</result>
+		</action>
+		
+		<action name="upload" class="edu.lsnu.base.UploadAction" method="upload">
+		</action>
+		
+		<!-- 学院认可实训基地模块 -->
+		<action name="trainingBase_*" class="trainingBaseAction" method="{1}">
+			<result name="list">/WEB-INF/page/trainingBaseAction/list.jsp</result>
+			<result name="toList" type="redirectAction">trainingBase_list</result>
+			<result name="addUI">/WEB-INF/page/trainingBaseAction/add.jsp</result>
+		</action>
+		
+		
+	</package>
+
+</struts>
