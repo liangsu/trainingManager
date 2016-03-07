@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2016-03-06 23:28:52
+Date: 2016-03-07 23:53:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -109,23 +109,28 @@ INSERT INTO `basic_settings` VALUES ('1', '实训时间', 'startDate', '2016-01-
 INSERT INTO `basic_settings` VALUES ('2', '实训时间', 'endDate', '2016-05-07', '实习实训结束日期');
 
 -- ----------------------------
--- Table structure for independent_training_base
+-- Table structure for free_training_base
 -- ----------------------------
-DROP TABLE IF EXISTS `independent_training_base`;
-CREATE TABLE `independent_training_base` (
+DROP TABLE IF EXISTS `free_training_base`;
+CREATE TABLE `free_training_base` (
   `id` int(11) NOT NULL auto_increment,
-  `sid` int(11) default NULL,
   `name` varchar(50) default NULL,
-  `don_name` varchar(20) default NULL,
-  `don_phone` varchar(20) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `independent_sid_fk` (`sid`),
-  CONSTRAINT `independent_sid_fk` FOREIGN KEY (`sid`) REFERENCES `student` (`id`)
+  `address` varchar(50) default NULL,
+  `linkerName` varchar(50) default NULL,
+  `linkerPhone` varchar(50) default NULL,
+  `teacherName` varchar(50) default NULL,
+  `teacherPhone` varchar(50) default NULL,
+  `addTime` datetime default NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of independent_training_base
+-- Records of free_training_base
 -- ----------------------------
+INSERT INTO `free_training_base` VALUES ('1', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', null);
+INSERT INTO `free_training_base` VALUES ('2', null, null, null, null, null, null, '2016-03-07 22:52:39');
+INSERT INTO `free_training_base` VALUES ('3', '1', '2', '3', '4', '5', '6', '2016-03-07 23:07:15');
+INSERT INTO `free_training_base` VALUES ('4', '2', '3', '4', '5', '6', '7', '2016-03-07 23:12:51');
 
 -- ----------------------------
 -- Table structure for menu
@@ -243,7 +248,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('12330401', '用户1', '12330401', '12软工班', null, '用户1', null, '1', '0', '2016-02-21 16:44:59', '2015', '1', '0', '0');
+INSERT INTO `student` VALUES ('12330401', '用户1', '12330401', '12软工班', null, '用户1', null, '1', '0', '2016-02-21 16:44:59', '2015', '1', '0', '1');
 INSERT INTO `student` VALUES ('12330402', '用户2', '12330402', '12软工班', null, null, null, '1', null, '2016-02-21 17:27:05', '2015', '1', '1', '0');
 INSERT INTO `student` VALUES ('12330403', '用户3', '12330403', '12软工班', null, null, null, '1', null, '2016-02-21 17:39:59', '2015', '1', '1', '0');
 INSERT INTO `student` VALUES ('12330404', '德玛西亚2', '12330404', '12软工班', null, null, null, '1', null, '2016-02-21 18:23:59', '2015', '1', '0', '0');
