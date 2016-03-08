@@ -5,6 +5,12 @@
     <title>乐山师范学院实习实训管理系统</title>
     <%@ include file="../public/css.jspf" %>
     <link rel="stylesheet" href="${rootPath }/plugins/iCheck/square/blue.css">
+    <script type="text/javascript">
+	 	// 在被嵌套时就刷新上级窗口
+		if(window.parent != window){
+			window.parent.location.reload(true);
+		}
+    </script>
   </head>
   <body class="hold-transition login-page">
     <div class="login-box">

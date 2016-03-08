@@ -132,4 +132,12 @@ public class MenuServiceImpl extends DaoSupportImpl<Menu> implements MenuService
 		}
 		return flag;
 	}
+
+	@Override
+	public List<String> getAllUrls() {
+		List<String> list = null;
+		String hql = "select distinct url from Menu where url is not null";
+		list = super.getSession().createQuery(hql).list();
+		return list;
+	}
 }

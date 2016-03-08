@@ -25,5 +25,7 @@ public final class Code {
 		//实习方式
 		public static final int STUDNET_TRAINING_TYPE_CENTRALIZE = 0;//集中实习
 		public static final int STUDNET_TRAINING_TYPE_FREEDOM = 1;//自主实习
+		//所有菜单的url,用于存放与context中
+		public static final String URL_ALL_MENUS = "allMneuUrls";
 	}
 }

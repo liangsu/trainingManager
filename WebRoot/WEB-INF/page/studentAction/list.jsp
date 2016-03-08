@@ -68,7 +68,7 @@
                           <td>${stu.username }</td>
                           <td>${stu.className }</td>
                           <td>${stu.phone }</td>
-                          <td>${stu.trainingBase.name }</td>
+                          <td>${stu.trainingType eq 0 ? stu.trainingBase.name : stu.freeTrainingBase.name }</td>
                           <td style="text-align:center;margin-left:0;">
                           	<a class="btn btn-default btn-xs" href="${rootPath }/student_editUI.action?id=${stu.id }"><i class="fa fa-edit"></i> 编辑</a>
                           	&nbsp;&nbsp;&nbsp;

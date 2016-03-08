@@ -29,5 +29,7 @@ public interface MenuService extends DaoSupport<Menu>{
 	 * @return 删除失败，则返回的字符串长度大于0，删除成功，返回的字符串长度等于0
 	 */
 	String deleteMenu(int id);
+
+	List<String> getAllUrls();
 	
 }

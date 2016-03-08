@@ -4,7 +4,7 @@
 <html>
   <head>
     <title>实习实训管理系统</title>
-    <%@ include file="./public/css.jspf" %>
+    <%@ include file="../public/css.jspf" %>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -28,7 +28,7 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
+              <!-- 通知: style can be found in dropdown.less-->
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
@@ -103,7 +103,7 @@
                   <li class="footer"><a href="#">查看所有消息</a></li>
                 </ul>
               </li>
-              <!-- Notifications: style can be found in dropdown.less -->
+              <!-- 通知: style can be found in dropdown.less -->
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
@@ -143,7 +143,7 @@
                   <li class="footer"><a href="#">查看所有</a></li>
                 </ul>
               </li>
-              <!-- Tasks: style can be found in dropdown.less -->
+              <!-- 任务: style can be found in dropdown.less -->
               <li class="dropdown tasks-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-flag-o"></i>
@@ -216,15 +216,14 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">超级管理员</span>
+                  <span class="hidden-xs">${sessionScope.login_user.username }</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    <p>
-                      梁苏 - 超级管理员
-                      <small>2015 - 10 - 10</small>
+                    <p>${sessionScope.login_user.username } - 超级管理员
+                      <small>${sessionScope.login_user.addTime }</small>
                     </p>
                   </li>
                   <!-- Menu Body -->
@@ -245,7 +244,7 @@
                       <a href="#" class="btn btn-default btn-flat">个人中心</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">退出</a>
+                      <a href="${rootPath }/login_logout.action" class="btn btn-default btn-flat">退出</a>
                     </div>
                   </li>
                 </ul>
@@ -291,7 +290,7 @@
                 <a href="#"><i class="${menu.cssClass }"></i> <span>${menu.name }</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
               	<c:forEach items="${menu.children }" var="child">
-              	  <li ><a href="${child.url }" target="main"><i class="${child.cssClass }"></i>${child.name }</a></li>
+              	  <li ><a href="${rootPath }${child.url }" target="main"><i class="${child.cssClass }"></i>${child.name }</a></li>
               	</c:forEach>
               </ul>
             </li>
@@ -482,7 +481,7 @@
 
     </div><!-- ./wrapper -->
 
-    <%@ include file="./public/js.jspf" %>
+    <%@ include file="../public/js.jspf" %>
 	
 	<script type="text/javascript">
 		function setIframeHeight() {

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.lsnu.base.DaoSupportImpl;
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.Student;
+import edu.lsnu.service.FreeTrainingBaseService;
 import edu.lsnu.service.StudentService;
 import edu.lsnu.service.TrainingBaseService;
 import edu.lsnu.utils.Code;
@@ -22,6 +23,8 @@ public class StudentServiceImpl extends DaoSupportImpl<Student> implements Stude
 
 	@Resource
 	private TrainingBaseService trainingBaseService;
+	@Resource
+	private FreeTrainingBaseService freeTrainingBaseService;
 	
 	@Override
 	public int add(Student bean) {
@@ -72,8 +75,8 @@ public class StudentServiceImpl extends DaoSupportImpl<Student> implements Stude
 					student.setTrainingBase(trainingBaseService.get(student.getTid()));
 				}
 				//自主实习
-				else{
-					
+				else if(student.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM && student.getTid() > 0){
+					student.setFreeTrainingBase(freeTrainingBaseService.get(student.getTid()));
 				}
 			}
 		}

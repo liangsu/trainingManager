@@ -74,6 +74,15 @@ public class LoginAction extends BaseAction<Object>{
 		
 		printJson(msg);
 	}
+	
+	/**
+	 * 登陆处理
+	 * @return
+	 */
+	public String logout(){
+		ServletActionContext.getContext().getSession().clear();
+		return "loginUI";
+	}
 
 	// ---
 	public String getUsername() {
