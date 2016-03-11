@@ -2,6 +2,8 @@ package edu.lsnu.action;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import edu.lsnu.utils.StringUtil;
 @Controller
 @Scope("prototype")
 public class LoginAction extends BaseAction<Object>{
+	
+	Log log = LogFactory.getLog(HomeAction.class);
 	
 	private String username;
 	private String password;
@@ -55,7 +59,9 @@ public class LoginAction extends BaseAction<Object>{
 			//2.1学生登陆,获取学生信息和菜单
 			if(type == Code.param.LOGIN_TYPE_STUDENT){
 				Student student = loginService.getStudent(username, password);
-				if(student.getState() == Code.param.STUDENT_ALLOW_LOGIN){
+				if(student == null){
+					msg += "用户名或者密码不存在";
+				}else if(student.getState() == Code.param.STUDENT_ALLOW_LOGIN){
 					user = student;
 					menus =roleService.getRoleMenusByName(Code.param.ROLE_STUDENT);
 				}else{
@@ -68,12 +74,14 @@ public class LoginAction extends BaseAction<Object>{
 			else if(type == Code.param.LOGIN_TYPE_ADMINUSER){
 				user = loginService.getAdminUser(username, password);
 				menus =roleService.getRoleMenusByName(Code.param.ROLE_ADMINUSER);
+				System.out.println("LoginAction menus 1"+menus);
 			}
 			
 			//3.用户登陆，存放用户的信息和菜单
 			if(user != null){
 				ActionContext.getContext().getSession().put(Code.param.LOGIN_USER, user);
 				if(menus!= null && menus.size() > 0){
+					System.out.println("LoginAction menus"+menus.size());
 					ActionContext.getContext().getSession().put(Code.param.LOGIN_USER_MENUS, menus);
 				}
 				msg = "ok";

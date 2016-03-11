@@ -24,20 +24,12 @@ import edu.lsnu.utils.Code;
 @Scope("prototype")
 public class HomeAction extends BaseAction<Object>{
 
-	Log log = LogFactory.getLog(HomeAction.class);
-	
 	/** 首页 */
 	@SuppressWarnings("unchecked")
 	public String index(){
 		//获取菜单
 		//List<Menu> menus = menuService.getMenuTree();
 		List<Menu> menus = (List<Menu>) ActionContext.getContext().getSession().get(Code.param.LOGIN_USER_MENUS);
-		
-		if(log.isDebugEnabled()){
-			for (Menu menu : menus) {
-				log.debug(menu.getName() + " - " + menu.getUrl());
-			}
-		}
 		
 		//获取登陆用户信息
 		Map<String, Object> user = new HashMap<String, Object>();

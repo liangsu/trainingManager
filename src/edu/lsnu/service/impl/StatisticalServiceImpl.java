@@ -36,17 +36,17 @@ public class StatisticalServiceImpl extends DaoSupportImpl<Object> implements St
 			for (Map<String, Object> map : list) {
 				int psnNum = Integer.parseInt(map.get("psnNum").toString());
 				if(psnNum > maxNum) maxNum = psnNum;
-				if(psnNum < minNum && psnNum != 0) minNum = psnNum;
+				if(psnNum < minNum) minNum = psnNum;
 			}
 			
 			//某个基地综合评价 = 学生评价（最高50分） + 学生人数评价（最高50分）
 			//   score   =    avgScore   +    numScore
 			//人数评价总分 = ( num – minNum ) * 50 / ( maxNum – minNum )
 			//2.计算基地的加权平均分
-			double score = 0.0f; //综合得分
-			double numScore = 0.0f; //人数评价总分
-			double avgScore = 0.0f; //学生评价平均分
 			for (Map<String, Object> map : list) {
+				double score = 0.0f; //综合得分
+				double numScore = 0.0f; //人数评价总分
+				double avgScore = 0.0f; //学生评价平均分
 				int psnNum = Integer.parseInt(map.get("psnNum").toString());//总人数
 				int totalScore = Integer.parseInt(map.get("totalScore").toString());//学生评价总得分
 				

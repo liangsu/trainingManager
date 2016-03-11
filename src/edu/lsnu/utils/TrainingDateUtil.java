@@ -116,6 +116,19 @@ public class TrainingDateUtil {
 		return flag;
 	}
 	
+	public static boolean canChooseBase(Student student){
+		boolean flag = false;
+		Date now = new Date();
+		if(trainingDate.getStartDate() !=null
+				&& trainingDate.getEndDate() != null
+				&& trainingDate.getStartDate().getTime() <= now.getTime()
+				&& trainingDate.getEndDate().getTime() >= now.getTime()
+				&& trainingDate.getGrade() == student.getGrade()){
+			flag = true;
+		}
+		return flag;
+	}
+	
 	/**
 	 * 判断当前时间是否在实习实训起止时间之间
 	 * @return

@@ -78,13 +78,13 @@ public class RoleServiceImpl extends DaoSupportImpl<Role> implements
 
 	@Override
 	public List<Menu> getRoleMenusByName(String roleName) {
-		String hql = "from Role where name = ?";
-		List<Role> roles = super.getList(hql, roleName);
+		String hql = "from Role where name = '"+roleName+"'";
+		List<Role> roles = super.getList(hql);
 		Set<Menu> menuSet = null;
 		if (roles != null && roles.size() > 0) {
 			menuSet = roles.get(0).getMenus();
 		}
-
+		
 		//组合一级菜单和二级菜单
 		List<Menu> menuList = new ArrayList<Menu>();
 		if (menuSet != null && menuSet.size() > 0) {

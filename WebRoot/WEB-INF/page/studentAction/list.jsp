@@ -72,7 +72,7 @@
                           <td style="text-align:center;margin-left:0;">
                           	<a class="btn btn-default btn-xs" href="${rootPath }/student_editUI.action?id=${stu.id }"><i class="fa fa-edit"></i> 编辑</a>
                           	&nbsp;&nbsp;&nbsp;
-                          	<a class="btn btn-default btn-xs" href="${rootPath }/student_delete.action?id=${stu.id }"><i class="fa fa-trash-o"></i> 删除</a>
+                          	<a class="btn btn-default btn-xs" href="javascript:remove('${stu.id }')"><i class="fa fa-trash-o"></i> 删除</a>
                           </td>
                         </tr>
                         </c:forEach>

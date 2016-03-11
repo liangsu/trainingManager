@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -13,10 +12,8 @@ import edu.lsnu.domain.FreeTrainingBase;
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.Student;
 import edu.lsnu.domain.TrainingBase;
-import edu.lsnu.service.StudentService;
 import edu.lsnu.utils.Code;
 import edu.lsnu.utils.DateUtil;
-import edu.lsnu.utils.StringUtil;
 import edu.lsnu.utils.TrainingDateUtil;
 import edu.lsnu.utils.ValidateUtil;
 import edu.lsnu.vo.TrainingDate;
@@ -98,6 +95,39 @@ public class StudentAction extends BaseAction<Student> {
 		//4.返回消息
 		printJson(msg);
 	}
+	
+	/** 删除学生 */
+	public void delete() {
+		String msg = "";
+		try {
+			if(model != null && model.getId() > 0){
+				//1.获取要删除的学生
+				model =  studentService.get(model.getId());
+				
+				//2.判断要删除的数据是否存在
+				if(model == null){
+					msg = "你删除的数据不存在！";
+					printJson(msg);
+					return;
+				}
+				
+				//3.判断能否删除
+				if(!TrainingDateUtil.canDeleteStudent(model)){
+					msg += "历史数据不允许删除!";
+					printJson(msg);
+					return ;
+				}
+				
+				//4.保存到数据库
+				studentService.delete(model);
+				msg += "ok";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		printJson(msg);
+	}
 
 	/** 个人中心页面 */
 	public String infoUI(){
@@ -111,6 +141,13 @@ public class StudentAction extends BaseAction<Student> {
 		//1.获取登录用户信息
 		Student user = (Student) getUser();
 		model = studentService.get(user.getId());
+		
+		//2.判断是否能够选择基地
+		if(!TrainingDateUtil.canChooseBase(model)){
+			putContext("message", "你已经不能选择实习基地");
+			return "message";
+		}
+		
 		//2.如果是自主实习，获取自主实习企业信息
 		if(model != null && model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
 			FreeTrainingBase freeTrainingBase = freeTrainingBaseService.get(model.getTid());
