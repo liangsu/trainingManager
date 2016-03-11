@@ -32,13 +32,13 @@ public class MenuServiceImpl extends DaoSupportImpl<Menu> implements MenuService
 	}
 	
 	private int getMaxTheOrderByPid(int pid){
-		Long max = null;
+		Integer max = null;
 		String hql = "select max(theOrder) from Menu where pid = ?";
-		max = (Long) super.getCount(hql, pid);
+		max = (Integer) super.getCount(hql, pid);
 		if(max == null){
 			return 0;
 		}
-		return max.intValue();
+		return max;
 	}
 	
 	@Override

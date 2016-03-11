@@ -9,6 +9,7 @@ import edu.lsnu.base.DaoSupportImpl;
 import edu.lsnu.domain.AdminUser;
 import edu.lsnu.domain.Student;
 import edu.lsnu.service.LoginService;
+import edu.lsnu.utils.StringUtil;
 
 @Service
 @Transactional
@@ -17,7 +18,10 @@ public class LoginServiceImpl extends DaoSupportImpl<Object> implements LoginSer
 	@Override
 	public Student getStudent(String idStr, String password) {
 		try {
-			int id = Integer.parseInt(idStr);
+			int id = 0;
+			if(StringUtil.isNumber(idStr)){
+				id = Integer.parseInt(idStr);
+			}
 			String hql = "from Student where id = ? and password = ?";
 			List<Object> list = super.getList(hql, id,password);
 			if(list != null && list.size() > 0){

@@ -5,7 +5,6 @@ import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.Student;
 
 public interface StudentService extends DaoSupport<Student>{
-
 	/**
 	 * 获取分页数据
 	 * @param currentPage
@@ -23,5 +22,27 @@ public interface StudentService extends DaoSupport<Student>{
 	 * @param model
 	 */
 	void chooseBase(Student model);
+	
+	/**
+	 * 添加学生
+	 * @param student
+	 * @return
+	 */
+	String addStu(Student student);
+
+	/**
+	 * 编辑学生
+	 * @param student
+	 * @param oldId
+	 * @return
+	 */
+	String editStu(Student student, int oldId);
+
+	/**
+	 * 学生评价基地
+	 * @param student
+	 * @return
+	 */
+	String evaluate(Student student);
 
 }

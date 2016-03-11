@@ -3,7 +3,10 @@ package edu.lsnu.base;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.lsnu.domain.PageBean;
@@ -105,6 +109,36 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T> {
 	}
 	
 	@Override
+	public List<Map<String, Object>> getSqlMapList(String sql, Object... params) {
+		Session session = getSession();
+		Query query = session.createSQLQuery(sql);
+		setQueryParameters(query, params);
+		//构建结果转化为map
+		query.setResultTransformer(new MapListResultTransformer());
+		return query.list();
+	}
+	
+	@Override
+	public PageBean getSqlMapListByPage(int currentPage, int pageSize, String sql, Object... params) {
+		Session session = getSession();
+		//1.获取列表数据
+		Query query = session.createSQLQuery(sql);
+		setQueryParameters(query, params);
+		query.setFirstResult((currentPage - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		query.setResultTransformer(new MapListResultTransformer());
+		List<Map<String,Object>> recordList = query.list();
+		
+		//2.获取总记录数量
+		String sqlCount = "select COUNT(temp.id) as count from ("+sql+") as temp";
+		Query queryCount = session.createSQLQuery(sqlCount);
+		setQueryParameters(queryCount, params);
+		BigInteger recordCount = (BigInteger) queryCount.uniqueResult();
+		
+		return new PageBean(currentPage, pageSize, recordCount.intValue(), recordList);
+	}
+	
+	@Override
 	public PageBean getByPage(int currentPage, int pageSize,QueryHelper queryHelper) {
 		// 查询分页list
 		List recordList = this.getList(queryHelper.getListHql(), currentPage, pageSize, queryHelper.getParameters().toArray());
@@ -151,4 +185,29 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T> {
 			}
 		}
 	}
+}
+
+/**
+ * 数据转化类
+ * @author Administrator
+ *
+ */
+class MapListResultTransformer implements ResultTransformer{
+
+	@Override
+	public Object transformTuple(Object[] objs, String[] columns) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(columns != null && columns.length > 0){
+			for(int i = 0;i < columns.length; i++){
+				map.put(columns[i], objs[i]);
+			}
+		}
+		return map;
+	}
+	
+	@Override
+	public List transformList(List list) {
+		return list;
+	}
+	
 }

@@ -11,10 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.lsnu.domain.AdminUser;
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.TrainingBase;
-import edu.lsnu.domain.TrainingItem;
 import edu.lsnu.service.AdminUserService;
 import edu.lsnu.service.TrainingBaseService;
-import edu.lsnu.utils.QueryHelper;
 
 public class TestHibernate {
 
@@ -68,9 +66,6 @@ public class TestHibernate {
 		System.out.println(pageBean.getRecordCount());
 		for (TrainingBase trainingBase : list) {
 			System.out.println(trainingBase);
-			for(TrainingItem ti : trainingBase.getTrainingItems()){
-				System.out.println(ti.getId());
-			}
 		}
 	}
 }

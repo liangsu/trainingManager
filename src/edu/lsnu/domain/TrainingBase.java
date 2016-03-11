@@ -1,13 +1,10 @@
 package edu.lsnu.domain;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,10 +31,12 @@ public class TrainingBase {
 	private String linkerPhone;
 	/* 去基地实习人数 */
 	private int num;
+	/* 所属级别（如：2015级） */
+	private int grade;
+	/* 图片 */
+	private String img;
 	/* 添加时间 */
 	private Date addTime;
-	/* 基地存在年份信息 */
-	private Set<TrainingItem> trainingItems = new HashSet<TrainingItem>();
 	
 	@Id @GeneratedValue
 	public int getId() {
@@ -75,13 +74,6 @@ public class TrainingBase {
 	public String toString() {
 		return super.toString() + " id:" + id + " name:" + name;
 	}
-	@OneToMany(mappedBy="trainingBase")
-	public Set<TrainingItem> getTrainingItems() {
-		return trainingItems;
-	}
-	public void setTrainingItems(Set<TrainingItem> trainingItems) {
-		this.trainingItems = trainingItems;
-	}
 	public int getNum() {
 		return num;
 	}
@@ -99,5 +91,17 @@ public class TrainingBase {
 	}
 	public void setLinkerPhone(String linkerPhone) {
 		this.linkerPhone = linkerPhone;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 }

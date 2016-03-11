@@ -1,9 +1,13 @@
 package edu.lsnu.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 管理员
@@ -19,6 +23,8 @@ public class AdminUser {
 	private String username;
 	/* 密码 */
 	private String password;
+	/* 添加时间 */
+	private Date addTime;
 	
 	@Id @GeneratedValue
 	public int getId() {
@@ -38,5 +44,12 @@ public class AdminUser {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 }

@@ -14,7 +14,7 @@ public interface BasicSettingsService extends DaoSupport<BasicSettings>{
 
 	Map<String, Object> setUI();
 
-	void set(Date startDate, Date endDate);
+	void set(Date startDate, Date endDate,Date evaluateDate, int grade);
 
 	BasicSettings getByTypeAndKey(String type, String key);
 

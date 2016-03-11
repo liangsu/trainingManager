@@ -60,6 +60,16 @@ $("#endDateBtn").click(function(){
 	$("#endDate").datepicker("show");
 });
 
+//评价时间
+$("#evaluateDate").datepicker({
+	language: 'cn',
+	autoclose: true,
+	format: 'yyyy-mm-dd'
+});
+$("#evaluateDateBtn").click(function(){
+	$("#evaluateDate").datepicker("show");
+});
+
 //表单提交
 function submitForm(){
 	$("#setForm").submit();

@@ -14,6 +14,13 @@ public class DateUtil {
 		return year;
 	}
 	
+	public static int getYearByDate(Date date){
+		int year = 0;
+		DateFormat df = new SimpleDateFormat("yyyy");
+		year = Integer.parseInt(df.format(date));
+		return year;
+	}
+	
 	public static String getDateString(Date date,String pattern){
 		String dateStr = null;
 		DateFormat df = new SimpleDateFormat(pattern);

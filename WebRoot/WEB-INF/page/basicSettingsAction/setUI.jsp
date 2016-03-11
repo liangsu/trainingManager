@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>添加学生</title>
+<title>系统配置</title>
 <%@ include file="../public/css.jspf" %>
 <link rel="stylesheet" href="${rootPath }/plugins/datepicker/datepicker3.css" type="text/css"></link>
 </head>
@@ -48,6 +48,29 @@
 	               </div>
                </div>
             </div>
+            <%-- <div class="form-group">
+              <label for="address" class="col-sm-2 control-label">今年级别：</label>
+              <div class="col-sm-4">
+	              <div class="input-group">
+	                      <div class="input-group-addon">
+	                        <i class="fa fa-calendar"></i>
+	                      </div>
+	                      <input type="text" class="form-control pull-right active" id="grade" name="endDate" value="${map.grade }" readonly="readonly">
+	               </div>
+               </div>
+            </div> --%>
+            <div class="form-group">
+              <label for="address" class="col-sm-2 control-label">学生评价时间：</label>
+              <div class="col-sm-4">
+	              <div class="input-group">
+	                      <div class="input-group-addon" id="evaluateDateBtn">
+	                        <i class="fa fa-calendar"></i>
+	                      </div>
+	                      <input type="text" class="form-control pull-right active" id="evaluateDate" name="evaluateDate" value="${map.evaluateDate }" readonly="readonly">
+	               </div>
+               </div>
+            </div>
+            
            </div>
           </div>
           <div class="box-footer">

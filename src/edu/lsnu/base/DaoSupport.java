@@ -2,6 +2,7 @@ package edu.lsnu.base;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.utils.QueryHelper;
@@ -27,6 +28,10 @@ public interface DaoSupport<T> {
 	List<T> getList(String hql,Object...params);
 	
 	List<T> getList(String hql,int currentPage,int pageSize,Object...params);
+	
+	List<Map<String, Object>> getSqlMapList(String sql,Object...params);
+	
+	PageBean getSqlMapListByPage(int currentPage, int pageSize, String sql, Object...params);
 	
 	PageBean getByPage(int currentPage,int pageSize,QueryHelper queryHelper);
 	

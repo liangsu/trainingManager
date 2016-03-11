@@ -15,7 +15,9 @@ import edu.lsnu.domain.Student;
 import edu.lsnu.domain.TrainingBase;
 import edu.lsnu.service.StudentService;
 import edu.lsnu.utils.Code;
+import edu.lsnu.utils.DateUtil;
 import edu.lsnu.utils.StringUtil;
+import edu.lsnu.utils.TrainingDateUtil;
 import edu.lsnu.utils.ValidateUtil;
 import edu.lsnu.vo.TrainingDate;
 
@@ -30,25 +32,71 @@ public class StudentAction extends BaseAction<Student> {
 	
 	/** 学生列表 */
 	public String list() throws Exception {
+		if(gradeYear <= 0){
+			gradeYear = DateUtil.getCurrentYear();
+		}
+		
 		PageBean pageBean = studentService.getPage(currentPage, pageSize, gradeYear, keyword, sortField, asc);
 		
-		ActionContext.getContext().put("pageBean", pageBean);
+		putContext("pageBean", pageBean);
 		
 		return "list";
 	}
 	
 	/** 添加、修改学生页面 */
 	public String editUI() throws Exception {
+		//1.判断是添加页面还是修改页面
+		//1.1修改页面,判断是否能够修改
 		if(model != null && model.getId() != null && model.getId() > 0){
 			model = studentService.get(model.getId());
+			if(!TrainingDateUtil.canEditStudent(model)){
+				putContext("message", "历史数据不能修改!");
+				putContext("url", "/student_list.action");
+				return "message";
+			}
 		}
+		//1.2添加页面，判断是否能够添加
+		else{
+			if(!TrainingDateUtil.canAddStudent()){
+				putContext("message", "请在系统配置中设置好实习实训时间再添加学生");
+				putContext("url", "/student_list.action");
+				return "message";
+			}
+		}
+		
 		return "editUI";
 	}
 	
-	/** 添加学生 */
-	public String eidt() throws Exception {
-		studentService.add(model);
-		return "toList";
+	/** 修改学生 */
+	public void edit() throws Exception {
+		String msg = "";
+		try {
+			//1.获取特殊字段
+			int oldId = getIntParam("oldId", 0);
+			
+			//2.校验字段
+			
+			//3.判断添加还是修改学生
+			//3.1修改学生
+			if(oldId > 0){
+				msg += studentService.editStu(model,oldId);
+			}
+			//3.2添加学生
+			else{
+				msg += studentService.addStu(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		
+		//3.如果返回的消息的长度等于0，则修改成功，返回结果"ok"
+		if(msg.length() == 0){
+			msg = "ok";
+		}
+		
+		//4.返回消息
+		printJson(msg);
 	}
 
 	/** 个人中心页面 */
@@ -120,6 +168,61 @@ public class StudentAction extends BaseAction<Student> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "error";
+		}
+		printJson(msg);
+	}
+	
+	/**学生评价页面*/
+	public String evaluateUI(){
+		Object user = getUser();
+		Student stu = null;
+		//1.判断登陆用户是学生还是管理员
+		//1.1学生登陆
+		if(user instanceof Student){
+			stu = studentService.get(((Student)user).getId());
+			
+			//1.1.1判断是否能够评价
+			if(!TrainingDateUtil.canEvaluate(stu)){
+				putContext("message", "你已经过了评价基地的时间了");
+				return "message";
+			}
+			
+			//1.1.2获取训练基地
+			//1.1.2.1集中训练
+			if(stu.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE
+					&& stu.getTid() > 0){
+				TrainingBase tb = trainingBaseService.get(stu.getTid());
+				stu.setTrainingBase(tb);
+			}
+			//1.1.2.1集中训练
+			else if(stu.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM
+					&& stu.getTid() > 0){
+				FreeTrainingBase ftb = freeTrainingBaseService.get(stu.getTid());
+				stu.setFreeTrainingBase(ftb);
+			}
+			putContext("info", stu);
+		}
+		//1.2管理员登陆
+		else{
+			putContext("message", "教师不能够评价基地");
+			return "message";
+		}
+		
+		return "evaluateUI";
+	}
+	
+	/**学生评价页面*/
+	public void evaluate(){
+		String msg = "";
+		try {
+			msg = studentService.evaluate(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		
+		if(msg.length() == 0){
+			msg = "ok";
 		}
 		printJson(msg);
 	}

@@ -9,7 +9,6 @@
 	<mapping class="edu.lsnu.domain.AdminUser" />
 	<mapping class="edu.lsnu.domain.Student" />
 	<mapping class="edu.lsnu.domain.TrainingBase" />
-	<mapping class="edu.lsnu.domain.TrainingItem" />
 	<mapping class="edu.lsnu.domain.Menu" />
 	<mapping class="edu.lsnu.domain.Role" />
 	<mapping class="edu.lsnu.domain.BasicSettings" />

@@ -26,6 +26,7 @@
 		<global-results>
 			<result name="loginUI">/WEB-INF/page/loginAction/login.jsp</result>
 			<result name="noPrivilegeError">/noPrivilegeError.jsp</result>
+			<result name="message">/message.jsp</result>
 		</global-results>
 	    
 		<!-- 登陆模块 -->
@@ -71,6 +72,7 @@
 			<result name="infoUI">/WEB-INF/page/studentAction/info.jsp</result>
 			<result name="chooseTrainingBaseUI">/WEB-INF/page/studentAction/chooseTrainingBase.jsp</result>
 			<result name="toChooseTrainingBaseUI" type="redirectAction">student_chooseTrainingBaseUI</result>
+			<result name="evaluateUI">/WEB-INF/page/studentAction/evaluate.jsp</result>
 		</action>
 		
 		<action name="upload" class="edu.lsnu.base.UploadAction" method="upload">
@@ -81,8 +83,15 @@
 			<result name="list">/WEB-INF/page/trainingBaseAction/list.jsp</result>
 			<result name="toList" type="redirectAction">trainingBase_list</result>
 			<result name="addUI">/WEB-INF/page/trainingBaseAction/add.jsp</result>
+			<result name="editUI">/WEB-INF/page/trainingBaseAction/edit.jsp</result>
 		</action>
 		
+		<!-- 统计模块 -->
+		<action name="Statistical_*" class="statisticalAction" method="{1}">
+		    <result name="basePsnNumUI">/WEB-INF/page/statisticalAction/basePsnNum.jsp</result>
+		    <result name="baseStudentUI">/WEB-INF/page/statisticalAction/baseStudent.jsp</result>
+		    
+		</action>
 		
 	</package>
 

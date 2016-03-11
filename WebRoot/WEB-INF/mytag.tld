@@ -22,4 +22,19 @@
  	</attribute>
  </tag>
  
+ <tag>
+ 	<name>show</name>
+ 	<tag-class>edu.lsnu.taglib.Show</tag-class>
+ 	<attribute>
+ 		<name>module</name>
+ 		<required>true</required>
+ 		<rtexprvalue>true</rtexprvalue>
+ 	</attribute>
+ 	<attribute>
+ 		<name>url</name>
+ 		<required>true</required>
+ 		<rtexprvalue>true</rtexprvalue>
+ 	</attribute>
+ </tag>
+ 
 </taglib>

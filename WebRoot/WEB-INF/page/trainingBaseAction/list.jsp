@@ -48,7 +48,7 @@
                 				<button class="btn btn-primary btn-sm" type="submit" id="btn-search">搜索</button>
                 	</div>
                 	<div class="col-sm-6">
-                		<a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a>
+                		<my:show url="/trainingBase_addUI.action" module="实训基地"><a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a></my:show>
                 	</div>
                 </div>
                 	
@@ -75,9 +75,9 @@
                       		<td>${tb.linkerPhone }</td>
                       		<td>${tb.num }</td>
                       		<td style="text-align:center;margin-left:0;">
-	                          	<a class="btn btn-default btn-xs" href=""><i class="fa fa-edit"></i> 编辑</a>
+	                          	<a class="btn btn-default btn-xs" href="${rootPath }/trainingBase_editUI.action?id=${tb.id }"><i class="fa fa-edit"></i> 编辑</a>
 	                          	&nbsp;&nbsp;&nbsp;
-	                          	<a class="btn btn-default btn-xs" href="/trainingBase_delete.action?id=${tb.id }"><i class="fa fa-trash-o"></i> 删除</a>
+	                          	<a class="btn btn-default btn-xs" href="javascript:remove('${tb.id }');"><i class="fa fa-trash-o"></i> 删除</a>
                           </td>
                       	</tr>
                       </c:forEach>

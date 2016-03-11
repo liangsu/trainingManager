@@ -16,6 +16,9 @@ public final class Code {
 		public static final String LOGIN_USER = "login_user";
 		//登陆用户的权限菜单在session中存的值
 		public static final String LOGIN_USER_MENUS = "login_user_menus";
+		//学生登陆状态
+		public static final int STUDENT_ALLOW_LOGIN = 1;
+		public static final int STUDENT_NOT_ALLOW_LOGIN = 0;
 		//登陆用户类型
 		public static final int LOGIN_TYPE_STUDENT = 0;
 		public static final int LOGIN_TYPE_ADMINUSER = 1;

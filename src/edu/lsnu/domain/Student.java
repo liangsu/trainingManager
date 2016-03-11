@@ -38,6 +38,8 @@ public class Student {
 	private String phone;
 	/* 评价 */
 	private Integer estimate;
+	/* 评价内容 */
+	private String evaluate;
 	/* 年级 */
 	private Integer grade;
 	/* 学院 */
@@ -157,6 +159,12 @@ public class Student {
 	}
 	public void setFreeTrainingBase(FreeTrainingBase freeTrainingBase) {
 		this.freeTrainingBase = freeTrainingBase;
+	}
+	public String getEvaluate() {
+		return evaluate;
+	}
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
 	}
 	
 }

@@ -12,19 +12,19 @@
   <div class="content-wrapper" style="background-color:#ecf0f5;margin-left:0;">
     <!-- 页面头部导航 -->
     <section class="content-header">
-      <h1> 增加学生信息  </h1>
+      <h1> ${model.id gt 0 ? "修改" : "添加" }学生信息  </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i>学生管理</li>
         <li><a href="/student_list.action" target="main"> 学生中心</a></li>
-        <li class="active">增加学生信息</li>
+        <li class="active">${model.id gt 0 ? "修改" : "添加" }学生信息</li>
       </ol>
     </section>
     <!-- 内容主体 -->
     <section class="content">
       <div class="box" style="margin-bottom:0;padding-bottom:1px;">
         <div class="box-header"></div>
-        <form class="form-horizontal" action="${rootPath }/student_add.action" method="post">
-        	
+        <form id="studentForm" class="form-horizontal" action="${rootPath }/student_edit.action" method="post" onsubmit="return false;">
+          <input type="hidden" name="oldId" value="${model.id }">
           <div class="box-body">
             <div class="form-group">
               <label for="name" class="col-sm-2 control-label">学号：</label>
@@ -40,7 +40,7 @@
               </div>
 			  <div class="col-sm-2"></div>
             </div>
-            <div class="form-group">
+            <%-- <div class="form-group">
               <label for="grade" class="col-sm-2 control-label">年级：</label>
               <div class="col-sm-4">
                 <select class="" name="grade" id="grade">
@@ -49,7 +49,7 @@
                 </select> &nbsp;级
               </div>
 			  <div class="col-sm-2"></div>
-            </div>
+            </div> --%>
             <div class="form-group">
               <label for="className" class="col-sm-2 control-label">班级：</label>
               <div class="col-sm-4">
@@ -75,7 +75,7 @@
           <div class="box-footer">
 		    <div class="col-sm-offset-2 col-md-2" style="padding-left:0px;">
 			  <button type="reset" class="btn btn-default">重置</button>
-			  <button type="submit" class="btn btn-info pull-right">保存</button>
+			  <button onclick="submitStudentForm();" class="btn btn-info pull-right">保存</button>
 			</div>
           </div>
         </form>
@@ -87,5 +87,6 @@
 </div>
 <!-- ./wrapper -->
 <%@ include file="../public/js.jspf" %>
+<script src="${rootPath }/js/student.edit.js"></script>
 </body>
 </html>

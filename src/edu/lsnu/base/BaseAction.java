@@ -21,9 +21,9 @@ import edu.lsnu.service.FreeTrainingBaseService;
 import edu.lsnu.service.LoginService;
 import edu.lsnu.service.MenuService;
 import edu.lsnu.service.RoleService;
+import edu.lsnu.service.StatisticalService;
 import edu.lsnu.service.StudentService;
 import edu.lsnu.service.TrainingBaseService;
-import edu.lsnu.service.TrainingItemService;
 import edu.lsnu.utils.Code;
 
 public abstract class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
@@ -54,8 +54,6 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	@Resource
 	protected TrainingBaseService trainingBaseService;
 	@Resource
-	protected TrainingItemService trainingItemService;
-	@Resource
 	protected StudentService studentService;
 	@Resource
 	protected MenuService menuService;
@@ -67,6 +65,8 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	protected BasicSettingsService basicSettingsService;
 	@Resource
 	protected FreeTrainingBaseService freeTrainingBaseService;
+	@Resource
+	protected StatisticalService statisticalService;
 	// ========================== 分页信息 ==========================
 	protected int currentPage = 1;
 	protected int pageSize = 3;
@@ -111,6 +111,16 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	public String getStrParam(String key,String defaultVal){
 		String retVal = ServletActionContext.getRequest().getParameter(key);
 		return retVal == null ? retVal : defaultVal;
+	}
+	public int getIntParam(String key,int defaultVal){
+		String param = ServletActionContext.getRequest().getParameter(key);
+		int val = 0;
+		try{
+			val = Integer.parseInt(param);
+		}catch(Exception e){
+			val = defaultVal;
+		}
+		return val;
 	}
 	
 	// ========================== 其它 ==========================

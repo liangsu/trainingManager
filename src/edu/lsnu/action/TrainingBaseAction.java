@@ -2,8 +2,6 @@ package edu.lsnu.action;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -12,10 +10,8 @@ import com.opensymphony.xwork2.ActionContext;
 import edu.lsnu.base.BaseAction;
 import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.TrainingBase;
-import edu.lsnu.domain.TrainingItem;
-import edu.lsnu.service.TrainingBaseService;
-import edu.lsnu.service.TrainingItemService;
 import edu.lsnu.utils.DateUtil;
+import edu.lsnu.utils.TrainingDateUtil;
 
 @Controller
 @Scope("prototype")
@@ -57,26 +53,109 @@ public class TrainingBaseAction extends BaseAction<TrainingBase>{
 	}
 
 	/** 添加实习实训基地 */
-	public String add() throws Exception{
-		//1.获取页面传来的数据
-		TrainingItem trainingItem = new TrainingItem();
+	public void add() throws Exception{
+		String msg = "";
+		try {
+			//1.判断能否添加基地
+			if(!TrainingDateUtil.canAddTrainingBase()){
+				msg = "请在系统配置中设置好实习实训时间再添加基地";
+				printJson(msg);
+				return ;
+			}
+			
+			//2.校验相关字段
+			
+			//3.设置相关的参数
+			model.setAddTime(new Date());
+			model.setNum(0);
+			model.setGrade( TrainingDateUtil.getTrainingDate().getGrade());
+			
+			//4.保存到数据库
+			trainingBaseService.add(model);
+			msg = "ok";
+		} catch (Exception e) {
+			msg = "error";
+			e.printStackTrace();
+		}
 		
-		//2.设置相关的参数
-		model.setAddTime(new Date());
-		trainingItem.setTrainingBase(model);
+		//5.返回消息
+		printJson(msg);
+	}
+	
+	/** 编辑实习实训基地页面 */
+	public String editUI() throws Exception{
+		String msg = "";
+		//1.判断能否编辑基地
+		if(!TrainingDateUtil.canAddTrainingBase()){
+			msg += "历史数据不能修改!";
+			printJson(msg);
+		}
 		
-		//3.保存到数据库
-		trainingBaseService.add(model);
-		trainingItemService.add(trainingItem);
+		//2.判断修改的数据是否为空
+		model = trainingBaseService.get(model.getId());
+		if(model == null){
+			msg += "你修改的数据部存在!";
+		}
 		
-		return "toList";
+		//3.判断能否修改
+		if(model.getGrade() != TrainingDateUtil.getTrainingDate().getGrade()){
+			msg += "历史数据不允许修改!";
+		}
+		
+		if(msg.length() > 0){
+			putContext("message", msg);
+			putContext("url", "/trainingBase_list.action");
+			return "message";
+		}
+		
+		return "editUI";
+	}
+	
+	/** 编辑实习实训基地 */
+	public void edit() throws Exception{
+		String msg = "";
+		try {
+			//1.保存到数据库
+			msg += trainingBaseService.edit(model);
+			if(msg.length() == 0){
+				msg = "ok";
+			}
+		} catch (Exception e) {
+			msg = "error";
+			e.printStackTrace();
+		}
+		
+		//2.返回消息
+		printJson(msg);
 	}
 	
 	/** 删除基地 */
-	public String delete() throws Exception{
-		//trainingBaseService.delete(model.getId());
-		
-		return "toList";
+	public void delete(){
+		String msg = "";
+		try {
+			//1.判断删除的信息是否存在
+			model = trainingBaseService.get(model.getId());
+			if(model == null){
+				msg = "你删除的信息不存在";
+				printJson(msg);
+				return ;
+			}
+			
+			//2.判断能否删除
+			if(!TrainingDateUtil.canDeleteTrainingBase(model)){
+				msg = "历史数据不允许删除";
+				printJson(msg);
+				return ;
+			}
+			
+			//3.删除
+			trainingBaseService.delete(model);
+			msg = "ok";
+		} catch (Exception e) {
+			msg = "error";
+			e.printStackTrace();
+		}
+		printJson(msg);
 	}
 	
 	// ---
