@@ -29,12 +29,6 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- 消息: style can be found in dropdown.less-->
-              <%@ include file="./xiaoxi.jspf" %>
-              <!-- 通知: style can be found in dropdown.less -->
-              <%@ include file="./tongzhi.jspf" %>
-              <!-- 任务: style can be found in dropdown.less -->
-              <%@ include file="./task.jspf" %>
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -125,7 +119,7 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <iframe id="main" name="main" src="message.jsp" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="550" onload="setIframeHeight();"></iframe>
+        <iframe id="main" name="main" src="body.html" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="550" onload="setIframeHeight();"></iframe>
       </div><!-- /.content-wrapper -->
 
 	  <!-- 页脚 -->

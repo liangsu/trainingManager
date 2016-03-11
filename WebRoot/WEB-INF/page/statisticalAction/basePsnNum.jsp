@@ -42,7 +42,7 @@
                 				<button class="btn btn-primary btn-sm" id="btn-search">查询</button>
                 	</div>
                 	<div class="col-sm-6">
-                		<a href="${rootPath }/student_editUI.action" class="btn btn-primary btn-sm pull-right">导出EXCEL</a>
+                		<button class="btn btn-primary btn-sm pull-right" id="btn-excel">导出EXCEL</button>
                 	</div>
                 </div>
                 	
@@ -99,6 +99,12 @@ $("#btn-search").click(function(){
 	$("#pageForm > input[name='grade']").val(grade);
 	
 	$("#pageForm").submit();
+});
+
+$("#btn-excel").click(function(){
+	var grade = $("#search-grade").val();
+	var url = "${rootPath }/Statistical_basePsnNumExcel.action?grade="+grade;
+	window.open(url);
 });
 </script>
 </body>

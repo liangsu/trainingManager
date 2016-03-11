@@ -90,7 +90,13 @@
 		<action name="Statistical_*" class="statisticalAction" method="{1}">
 		    <result name="basePsnNumUI">/WEB-INF/page/statisticalAction/basePsnNum.jsp</result>
 		    <result name="baseStudentUI">/WEB-INF/page/statisticalAction/baseStudent.jsp</result>
-		    
+		    <!-- 下载excel -->
+		    <result name="excel" type="stream">
+		        <param name="contentType">application/vnd.ms-excel</param>
+		        <param name="inputName">excelStream</param>
+		        <param name="contentDisposition">attachment;filename=${fileName}</param>
+		        <param name="bufferSize">2048</param> 
+		    </result>
 		</action>
 		
 	</package>
