@@ -33,6 +33,7 @@
 		<action name="login_*" class="loginAction" method="{1}">
 			<result name="loginUI">/WEB-INF/page/loginAction/login.jsp</result>
 			<result name="toLoginUI" type="redirectAction">login_loginUI</result>
+			<result name="updatePwdUI">/WEB-INF/page/loginAction/updatePwd.jsp</result>
 		</action>
 		<!-- 验证码 -->
 		<action name="validateImage" class="validateImageAction">
@@ -68,11 +69,14 @@
 			<result name="list">/WEB-INF/page/studentAction/list.jsp</result>
 			<result name="editUI">/WEB-INF/page/studentAction/edit.jsp</result>
 			<result name="toList" type="redirectAction">student_list</result>
+			<result name="detailInfoUI">/WEB-INF/page/studentAction/detailInfo.jsp</result>
 			
 			<result name="infoUI">/WEB-INF/page/studentAction/info.jsp</result>
 			<result name="chooseTrainingBaseUI">/WEB-INF/page/studentAction/chooseTrainingBase.jsp</result>
 			<result name="toChooseTrainingBaseUI" type="redirectAction">student_chooseTrainingBaseUI</result>
 			<result name="evaluateUI">/WEB-INF/page/studentAction/evaluate.jsp</result>
+			
+			<result name="subsidyList">/WEB-INF/page/studentAction/subsidyList.jsp</result>
 		</action>
 		
 		<action name="upload" class="edu.lsnu.base.UploadAction" method="upload">

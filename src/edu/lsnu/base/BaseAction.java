@@ -110,7 +110,7 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	// ========================== 取值 ==========================
 	public String getStrParam(String key,String defaultVal){
 		String retVal = ServletActionContext.getRequest().getParameter(key);
-		return retVal == null ? retVal : defaultVal;
+		return retVal == null ? defaultVal : retVal;
 	}
 	public int getIntParam(String key,int defaultVal){
 		String param = ServletActionContext.getRequest().getParameter(key);

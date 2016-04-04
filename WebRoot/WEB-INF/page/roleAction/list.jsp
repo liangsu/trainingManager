@@ -28,11 +28,11 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                <div class="row">
+                <!-- <div class="row">
                 	<div class="col-sm-1 col-sm-offset-11">
                 		<a href="javascript:void(0);" class="btn btn-primary btn-sm pull-right">添加角色</a>
                 	</div>
-                </div>
+                </div> -->
                 	
                 </div>
                 <div class="row">
@@ -51,9 +51,9 @@
                           <td style="text-align:center;margin-left:0;">
                           	<a class="btn btn-default btn-xs" href="role_manageRoleUI.action?id=${role.id }"><i class="fa fa-user-plus"></i>管理权限</a>
                           	&nbsp;&nbsp;&nbsp;
-                          	<a class="btn btn-default btn-xs" href="#"><i class="fa fa-edit"></i> 编辑</a>
+                          	<!-- <a class="btn btn-default btn-xs" href="#"><i class="fa fa-edit"></i> 编辑</a>
                           	&nbsp;&nbsp;&nbsp;
-                          	<a class="btn btn-default btn-xs" href=""><i class="fa fa-trash-o"></i> 删除</a>
+                          	<a class="btn btn-default btn-xs" href=""><i class="fa fa-trash-o"></i> 删除</a> -->
                           </td>
                         </tr>
                         </c:forEach>

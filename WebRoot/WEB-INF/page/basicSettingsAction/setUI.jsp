@@ -29,13 +29,13 @@
               <label for="name" class="col-sm-2 control-label">实习实训开始时间：</label>
               <div class="col-sm-4">
               	<div class="input-group">
-                      <div class="input-group-addon" id="startDateBtn">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control pull-right active" id="startDate" name="startDate" value="${map.startDate }" readonly="readonly">
+                     <div class="input-group-addon" id="startDateBtn">
+                       <i class="fa fa-calendar"></i>
+                     </div>
+                     <input type="text" class="form-control pull-right active" id="startDate" name="startDate" value="${map.startDate }" readonly="readonly">
                  </div>
               </div>
-			  <div class="col-sm-2"></div>
+			  <div class="col-sm-3 notice">实习实训开始时间至少大于当前时间</div>
             </div>
             <div class="form-group">
               <label for="address" class="col-sm-2 control-label">实习实训结束时间：</label>
@@ -47,6 +47,7 @@
 	                      <input type="text" class="form-control pull-right active" id="endDate" name="endDate" value="${map.endDate }" readonly="readonly">
 	               </div>
                </div>
+               <div class="col-sm-3 notice">实习实训结束时间必须大于开始时间</div>
             </div>
             <%-- <div class="form-group">
               <label for="address" class="col-sm-2 control-label">今年级别：</label>
@@ -69,6 +70,7 @@
 	                      <input type="text" class="form-control pull-right active" id="evaluateDate" name="evaluateDate" value="${map.evaluateDate }" readonly="readonly">
 	               </div>
                </div>
+               <div class="col-sm-3 notice">学生评价时间必须在开始和结束时间之间</div>
             </div>
             
            </div>

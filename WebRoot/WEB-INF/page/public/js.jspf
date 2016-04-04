@@ -12,3 +12,4 @@
 <!-- AdminLTE for demo purposes -->
 <script src="${rootPath }/dist/js/demo.js"></script>
 <script src="${rootPath }/js/common.js"></script>
+<script src="${rootPath }/js/validate.js"></script>

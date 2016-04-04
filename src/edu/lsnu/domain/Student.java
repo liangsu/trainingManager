@@ -52,6 +52,8 @@ public class Student {
 	private int tid;
 	/* 添加时间 */
 	private Date addTime;
+	private Double subsidyMoney;//应补金额
+	private Double actualMoney;//实补金额
 	
 	/*实习基地*/
 	private TrainingBase trainingBase;
@@ -166,5 +168,16 @@ public class Student {
 	public void setEvaluate(String evaluate) {
 		this.evaluate = evaluate;
 	}
-	
+	public Double getSubsidyMoney() {
+		return subsidyMoney;
+	}
+	public void setSubsidyMoney(Double subsidyMoney) {
+		this.subsidyMoney = subsidyMoney;
+	}
+	public Double getActualMoney() {
+		return actualMoney;
+	}
+	public void setActualMoney(Double actualMoney) {
+		this.actualMoney = actualMoney;
+	}
 }

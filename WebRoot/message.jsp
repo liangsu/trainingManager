@@ -41,7 +41,6 @@
   </div>
   <!-- /.content-wrapper -->
   <div class="control-sidebar-bg"></div>
-</div>
 <!-- ./wrapper -->
 <%@ include file="./WEB-INF/page/public/js.jspf" %>
 <script type="text/javascript">
@@ -57,7 +56,7 @@
      		clearTimeout(t); 
             window.location.href = url;
         }        
-    } 
+    }
 </script>
 </body>
 </html>

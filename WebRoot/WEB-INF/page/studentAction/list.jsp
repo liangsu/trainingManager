@@ -64,7 +64,7 @@
                       <tbody>
                        <c:forEach items="${pageBean.recordList }" var="stu">
                         <tr role="row" class="event">
-                          <td class="sorting_1">${stu.id }</td>
+                          <td class="sorting_1"><a href="${rootPath }/student_detailInfoUI.action?id=${stu.id}">${stu.id }</a></td>
                           <td>${stu.username }</td>
                           <td>${stu.className }</td>
                           <td>${stu.phone }</td>

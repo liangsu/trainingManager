@@ -2,13 +2,8 @@ package edu.lsnu.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.RichTextString;
 
 public class ExcelUtil {
 
@@ -80,7 +76,7 @@ public class ExcelUtil {
 		for (short i = 0; i < headers.length; i++) {
 			HSSFCell cell = row.createCell(i);
 			cell.setCellStyle(style);
-			HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+			RichTextString text = new HSSFRichTextString(headers[i]);
 			cell.setCellValue(text);
 		}
 
@@ -93,7 +89,7 @@ public class ExcelUtil {
 					Object value = map.get(keys[j]);
 					HSSFCell cell = r.createCell(j);
 					cell.setCellStyle(style2);
-					HSSFRichTextString text = new HSSFRichTextString(convertToString(value));
+					RichTextString text = new HSSFRichTextString(convertToString(value));
 					cell.setCellValue(text);
 				}
 			}

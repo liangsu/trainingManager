@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ActionContext;
 
 import edu.lsnu.base.BaseAction;
+import edu.lsnu.domain.AdminUser;
 import edu.lsnu.domain.Menu;
 import edu.lsnu.domain.Student;
 import edu.lsnu.utils.Code;
@@ -74,14 +75,12 @@ public class LoginAction extends BaseAction<Object>{
 			else if(type == Code.param.LOGIN_TYPE_ADMINUSER){
 				user = loginService.getAdminUser(username, password);
 				menus =roleService.getRoleMenusByName(Code.param.ROLE_ADMINUSER);
-				System.out.println("LoginAction menus 1"+menus);
 			}
 			
 			//3.用户登陆，存放用户的信息和菜单
 			if(user != null){
 				ActionContext.getContext().getSession().put(Code.param.LOGIN_USER, user);
 				if(menus!= null && menus.size() > 0){
-					System.out.println("LoginAction menus"+menus.size());
 					ActionContext.getContext().getSession().put(Code.param.LOGIN_USER_MENUS, menus);
 				}
 				msg = "ok";
@@ -103,6 +102,70 @@ public class LoginAction extends BaseAction<Object>{
 		ServletActionContext.getContext().getSession().clear();
 		return "loginUI";
 	}
+	
+	/**
+	 * 修改密码界面
+	 * @return
+	 */
+	public String updatePwdUI(){
+		
+		return "updatePwdUI";
+	}
+	
+	public void updatePwd(){
+		String msg = "";
+		try {
+			//1.获取页面参数
+			String oldPassword = getStrParam("oldPassword", "");
+			String newPassword = getStrParam("newPassword", "");
+			
+			//2.获取登陆用户
+			Object user = getUser();
+			
+			//3.修改密码
+			//3.1教师用户修改密码
+			if(user instanceof AdminUser){
+				//3.1.1判断密码是否正确
+				AdminUser adminUser = adminUserService.get(((AdminUser) user).getId());
+				if(!oldPassword.equals(adminUser.getPassword())){
+					msg += "你输入的密码不正确!";
+					printJson(msg);
+					return;
+				}
+				
+				//3.1.2修改密码
+				adminUser.setPassword(newPassword);
+				adminUserService.update(adminUser);
+			}
+			//3.2学生用户修改密码
+			else if(user instanceof Student){
+				//3.2.1判断密码是否正确
+				Student student = studentService.get(((Student) user).getId());
+				if(!oldPassword.equals(student.getPassword())){
+					msg += "你输入的密码不正确!";
+					printJson(msg);
+					return;
+				}
+				
+				//3.2.2修改密码
+				student.setPassword(newPassword);
+				studentService.update(student);
+			}
+			
+			//4.注销登陆用户
+			ServletActionContext.getContext().getSession().clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		
+		//4.返回消息
+		if(msg.length() == 0){
+			msg = "ok";
+		}
+		printJson(msg);
+	}
+	
 
 	// ---
 	public String getUsername() {

@@ -5,7 +5,6 @@ function submitStudentForm(){
 	var areaForm = $("#studentForm");
 	var url = areaForm.attr("action");
 	var data = areaForm.serialize();
-	console.log(data);
 	
 	$.post(url,data,function(text){
 		if(text == "ok"){

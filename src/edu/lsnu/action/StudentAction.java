@@ -264,6 +264,74 @@ public class StudentAction extends BaseAction<Student> {
 		printJson(msg);
 	}
 	
+	/**实习补助列表页面*/
+	public String subsidyList(){
+		if(gradeYear <= 0){
+			gradeYear = DateUtil.getCurrentYear();
+		}
+		
+		PageBean pageBean = studentService.getPage(currentPage, pageSize, gradeYear, keyword, sortField, asc);
+		
+		putContext("pageBean", pageBean);
+		
+		
+		return "subsidyList";
+	}
+	
+	/** 实习补助保存 */
+	public void subsidyEdit(){
+		String msg = "";
+		try {
+			//1.校验字段
+			
+			//2.获取要修改的学生
+			Student oldBean = studentService.get(model.getId());
+			if(model == null){
+				msg += "你修改的学生信息不存在！";
+				return;
+			}
+			
+			//3.设置要修改的字段
+			oldBean.setSubsidyMoney(model.getSubsidyMoney());
+			oldBean.setActualMoney(model.getActualMoney());
+			
+			//4.保存到数据库
+			studentService.update(oldBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		
+		//5.如果返回的消息的长度等于0，则修改成功，返回结果"ok"
+		if(msg.length() == 0){
+			msg = "ok";
+		}
+		
+		//6.返回消息
+		printJson(msg);
+	}
+	
+	/** 学生详细信息页面 */
+	public String detailInfoUI(){
+		model = studentService.get(model.getId());
+		
+		if(model != null && model.getTid() > 0){
+			//集中实习
+			if(model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE){
+				TrainingBase tb = trainingBaseService.get(model.getTid());
+				model.setTrainingBase( tb);
+			}
+			//自主实习
+			else if(model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
+				model.setFreeTrainingBase( freeTrainingBaseService.get(model.getTid()));
+			}
+		}
+	
+		
+		putContext("info", model);
+		return "detailInfoUI";
+	}
+	
 	// ---
 	public String getKeyword() {
 		return keyword;

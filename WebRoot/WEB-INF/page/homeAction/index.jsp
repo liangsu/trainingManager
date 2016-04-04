@@ -15,9 +15,9 @@
         <!-- Logo -->
         <a href="body.html"  target="main" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>乐师</b></span>
+          <span class="logo-mini"><b>实习</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>乐师实习实训管理系统</b></span>
+          <span class="logo-lg"><b>实习实训管理系统</b></span>
         </a>
 
         <!-- 导航栏 -->

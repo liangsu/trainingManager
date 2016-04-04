@@ -53,6 +53,13 @@
               </div>
 			  <div class="col-sm-2"></div>
             </div>
+            <div class="form-group">
+              <label for="className" class="col-sm-2 control-label">联系电话：</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="phone" name="phone" value="${info.phone }" readonly="readonly" placeholder="练习电话，如：15520900123">
+              </div>
+			  <div class="col-sm-2"></div>
+            </div>
            </div>
           </div>
           <div class="box-footer">
