@@ -71,6 +71,13 @@
 				  <div class="col-sm-2"></div>
 	            </div>
 	            <div class="form-group">
+	              <label class="col-sm-2 control-label">银行卡号：</label>
+	              <div class="col-sm-4">
+	                <input type="text" class="form-control" value="${model.bank }" readonly="readonly">
+	              </div>
+				  <div class="col-sm-2"></div>
+	            </div>
+	            <div class="form-group">
 	              <label class="col-sm-2 control-label">实习方式</label>
 	              <div class="col-sm-2">
 	                <label class="radio-inline">

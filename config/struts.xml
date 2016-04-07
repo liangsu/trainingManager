@@ -65,6 +65,7 @@
 			</result>
 		</action>
 	
+		<!-- 学生模块 -->
 		<action name="student_*" class="studentAction" method="{1}">
 			<result name="list">/WEB-INF/page/studentAction/list.jsp</result>
 			<result name="editUI">/WEB-INF/page/studentAction/edit.jsp</result>
@@ -79,6 +80,7 @@
 			<result name="subsidyList">/WEB-INF/page/studentAction/subsidyList.jsp</result>
 		</action>
 		
+		<!-- 上传模块 -->
 		<action name="upload" class="edu.lsnu.base.UploadAction" method="upload">
 		</action>
 		
@@ -88,6 +90,9 @@
 			<result name="toList" type="redirectAction">trainingBase_list</result>
 			<result name="addUI">/WEB-INF/page/trainingBaseAction/add.jsp</result>
 			<result name="editUI">/WEB-INF/page/trainingBaseAction/edit.jsp</result>
+			<result name="simpleList">/WEB-INF/page/trainingBaseAction/simpleList.jsp</result>
+			<result name="detailInfo">/WEB-INF/page/trainingBaseAction/detailInfo.jsp</result>
+			<result name="evaluate">/WEB-INF/page/trainingBaseAction/evaluate.jsp</result>
 		</action>
 		
 		<!-- 统计模块 -->

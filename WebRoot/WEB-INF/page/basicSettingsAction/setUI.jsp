@@ -22,7 +22,7 @@
     <section class="content">
       <div class="box" style="margin-bottom:0;padding-bottom:1px;">
         <div class="box-header"></div>
-        <form id="setForm" class="form-horizontal" action="${rootPath }/basicSettings_set.action" onsubmit="submitForm();return false;" method="post">
+        <form id="areaForm" class="form-horizontal" action="${rootPath }/basicSettings_set.action" onsubmit="submitForm();return false;" method="post">
         	
           <div class="box-body">
             <div class="form-group">
@@ -78,7 +78,7 @@
           <div class="box-footer">
 		    <div class="col-sm-offset-2 col-md-2" style="padding-left:0px;">
 			  <button type="reset" class="btn btn-default">重置</button>
-			  <button type="submit" class="btn btn-info pull-right">保存</button>
+			  <button type="button" onclick="save()" class="btn btn-info pull-right">保存</button>
 			</div>
           </div>
         </form>
@@ -93,7 +93,56 @@
 <script type="text/javascript" src="${rootPath }/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="${rootPath }/js/basicSettings.js"></script>
 <script type="text/javascript">
+//开始时间
+var startDate = $("#startDate").val();
+$("#startDate").datepicker({
+	autoclose: true,
+	startDate:new Date()
+}).on("hide",function(){
+	var d = $("#startDate").datepicker("getDate");
+	if(d == "Invalid Date"){
+		$("#startDate").val(startDate);
+	}else{
+		
+	}
+});
 
+$("#startDateBtn").click(function(){
+	$("#startDate").datepicker("show");
+});
+
+//结束时间
+$("#endDate").datepicker({
+	autoclose: true,
+	startDate: startDate
+});
+$("#endDateBtn").click(function(){
+	$("#endDate").datepicker("show");
+});
+
+//评价时间
+$("#evaluateDate").datepicker({
+	autoclose: true,
+});
+$("#evaluateDateBtn").click(function(){
+	$("#evaluateDate").datepicker("show");
+});
+
+function save(){
+	var areaForm = $("#areaForm");
+	var url = areaForm.attr("action");
+	var data = areaForm.serialize();
+	
+	$.post(url,data,function(text){
+		if(text == "ok"){
+			window.location.reload();
+		}else if(text == "error"){
+			alert("保存失败!");
+		}else{
+			alert(text);
+		}
+	});
+}
 </script>
 </body>
 </html>

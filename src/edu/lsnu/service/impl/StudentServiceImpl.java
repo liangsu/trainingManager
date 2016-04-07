@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -225,6 +226,12 @@ public class StudentServiceImpl extends DaoSupportImpl<Student> implements Stude
 		super.update(oldBean);
 		
 		return msg;
+	}
+
+	@Override
+	public PageBean getPageBeanEvaluate(int currentPage, int pageSize, int tid) {
+		String sql = "select s.id,s.username,s.evaluate,s.estimate from student s where s.trainingType = ? and s.tid = ?";
+		return super.getSqlMapListByPage(currentPage, pageSize, sql, Code.param.STUDNET_TRAINING_TYPE_CENTRALIZE, tid);
 	}
 
 }

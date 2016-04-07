@@ -28,8 +28,17 @@ function isTel(){
 	
 }
 
-function isMobile(){
-	
+/**
+ * 校验移动电话
+ * @param mobile
+ * @returns {Boolean}
+ */
+function isMobile(mobile){
+	var reg = /^[1][3,4,5,8][0-9]{9}$/g;
+	if(reg.test(mobile)){
+		return true;
+	}
+	return false;
 }
 
 function isPhone(){

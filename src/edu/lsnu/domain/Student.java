@@ -54,6 +54,7 @@ public class Student {
 	private Date addTime;
 	private Double subsidyMoney;//应补金额
 	private Double actualMoney;//实补金额
+	private String bank;//银行卡号
 	
 	/*实习基地*/
 	private TrainingBase trainingBase;
@@ -179,5 +180,11 @@ public class Student {
 	}
 	public void setActualMoney(Double actualMoney) {
 		this.actualMoney = actualMoney;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
 	}
 }

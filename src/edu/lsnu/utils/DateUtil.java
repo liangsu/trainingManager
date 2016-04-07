@@ -7,6 +7,22 @@ import java.util.Date;
 
 public class DateUtil {
 
+	/**
+	 * 获取当期日期
+	 * @return
+	 */
+	public static Date getNowShort(){
+		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String nowStr = df.format(now);
+		try {
+			now = df.parse(nowStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return now;
+	}
+	
 	public static int getCurrentYear(){
 		int year = 2015;
 		DateFormat df = new SimpleDateFormat("yyyy");

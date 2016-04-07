@@ -30,11 +30,11 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- 消息: style can be found in dropdown.less-->
-              <%@ include file="./xiaoxi.jspf" %>
+              
               <!-- 通知: style can be found in dropdown.less -->
-              <%@ include file="./tongzhi.jspf" %>
+              
               <!-- 任务: style can be found in dropdown.less -->
-              <%@ include file="./task.jspf" %>
+              
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -50,21 +50,15 @@
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">粉丝</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">关注</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">好友</a>
-                    </div>
-                  </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">个人中心</a>
+                      <c:if test="${user.userType eq '学生用户' }">
+	                      <a href="${rootPath }/student_infoUI.action" target="main" class="btn btn-default btn-flat">个人中心</a>
+                      </c:if>
+                      <c:if test="${user.userType eq '管理员用户' }">
+	                      <a href="${rootPath }/login_updatePwdUI.action" target="main" class="btn btn-default btn-flat">修改密码</a>
+                      </c:if>
                     </div>
                     <div class="pull-right">
                       <a href="${rootPath }/login_logout.action" class="btn btn-default btn-flat">退出</a>

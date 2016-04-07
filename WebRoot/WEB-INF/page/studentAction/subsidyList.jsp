@@ -107,6 +107,7 @@
                           <th>学号</th>
                           <th>姓名</th>
                           <th>班级</th>
+                          <th>银行卡号</th>
                           <th>应补金额</th>
                           <th>实补金额</th>
                           <th>操作</th>
@@ -118,6 +119,7 @@
                           <td class="sorting_1">${stu.id }</td>
                           <td>${stu.username }</td>
                           <td>${stu.className }</td>
+                          <td>${stu.bank }</td>
                           <td>${stu.subsidyMoney }元</td>
                           <td>${stu.actualMoney}元</td>
                           <td style="text-align:center;margin-left:0;">

@@ -45,4 +45,12 @@ public interface StudentService extends DaoSupport<Student>{
 	 */
 	String evaluate(Student student);
 
+	/**
+	 * 分页获取学生对某个基地的评价
+	 * @param currentPage
+	 * @param pageSize
+	 * @param tid 集中实习基地的id
+	 */
+	PageBean getPageBeanEvaluate(int currentPage, int pageSize, int tid);
+
 }

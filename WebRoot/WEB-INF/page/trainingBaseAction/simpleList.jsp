@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>实习基地</title>
+<title>基地查看</title>
 <%@ include file="../public/css.jspf" %>
 <link rel="stylesheet" href="${rootPath }/plugins/datatables/dataTables.bootstrap.css">
 </head>
@@ -47,9 +47,6 @@
                 				关键字: &nbsp;<input type="text" id="search-keyword"  placeholder="名称" value="${keyword }" >&nbsp;
                 				<button class="btn btn-primary btn-sm" type="submit" id="btn-search">搜索</button>
                 	</div>
-                	<div class="col-sm-6">
-                		<my:show url="/trainingBase_addUI.action" module="实训基地"><a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a></my:show>
-                	</div>
                 </div>
                 	
                 </div>
@@ -63,7 +60,6 @@
                           <th class="">联系人</th>
                           <th class="">联系电话</th>
                           <th class="">去年前往实习人数</th>
-                          <th class="">操作</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -74,11 +70,6 @@
                       		<td>${tb.linkerName }</td>
                       		<td>${tb.linkerPhone }</td>
                       		<td>${tb.num }</td>
-                      		<td style="text-align:center;margin-left:0;">
-	                          	<a class="btn btn-default btn-xs" href="${rootPath }/trainingBase_editUI.action?id=${tb.id }"><i class="fa fa-edit"></i> 编辑</a>
-	                          	&nbsp;&nbsp;&nbsp;
-	                          	<a class="btn btn-default btn-xs" href="javascript:remove('${tb.id }');"><i class="fa fa-trash-o"></i> 删除</a>
-                          </td>
                       	</tr>
                       </c:forEach>
                       </tbody>
@@ -86,7 +77,7 @@
                   </div>
                 </div>
                 <!-- 分页表单 -->
-                <form id="pageForm" action="trainingBase_list.action" method="post">
+                <form id="pageForm" action="trainingBase_simpleList.action" method="post">
                 	<input type="hidden" name="year" value="${year }">
                 	<input type="hidden" name="keyword" value="${keyword }">
                 </form>

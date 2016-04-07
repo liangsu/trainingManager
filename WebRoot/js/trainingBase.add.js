@@ -32,7 +32,6 @@ function submitForm(){
 	var areaForm = $("#areaForm");
 	var url = areaForm.attr("action");
 	var data = areaForm.serialize();
-	console.log(data);
 	
 	$.post(url,data,function(text){
 		if(text == "ok"){

@@ -2,6 +2,7 @@ package edu.lsnu.action;
 
 import java.util.Date;
 
+import org.apache.catalina.valves.StuckThreadDetectionValve;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -44,6 +45,29 @@ public class TrainingBaseAction extends BaseAction<TrainingBase>{
 		ActionContext.getContext().put("endYear", endYear);
 		ActionContext.getContext().put("pageBean", pageBean);
 		return "list";
+	}
+	
+	/** 按年度获取学院认可的企业 */
+	public String simpleList() throws Exception{
+		//1.处理页面参数
+		int	beginYear = trainingBaseService.getBeginYear();//第一个基地的年份
+		int endYear = DateUtil.getCurrentYear();
+		//1.1处理年份
+		if(year <= 0 || year > endYear){
+			year = endYear;
+		}
+		if(keyword == null){
+			keyword = "";
+		}
+		
+		//2.准备数据
+		PageBean pageBean = trainingBaseService.getYearDataByPage(currentPage,pageSize,year,keyword);
+		
+		//3.返回页面参数
+		ActionContext.getContext().put("beginYear", beginYear);
+		ActionContext.getContext().put("endYear", endYear);
+		ActionContext.getContext().put("pageBean", pageBean);
+		return "simpleList";
 	}
 	
 	/** 添加实习实训基地页面 */
@@ -156,6 +180,30 @@ public class TrainingBaseAction extends BaseAction<TrainingBase>{
 			e.printStackTrace();
 		}
 		printJson(msg);
+	}
+	
+	/**基地详细信息*/
+	public String detailInfo(){
+		model = trainingBaseService.get(model.getId());
+		
+		return "detailInfo";
+	}
+	
+	/** 查看基地评价*/
+	public String evaluate(){
+		model = trainingBaseService.get(model.getId());
+		
+		return "evaluate";
+	}
+	
+	/** 获取基地评价*/
+	public void getEvaluate(){
+		if(currentPage < 1){
+			currentPage = 1;
+		}
+		pageSize = 1;
+		PageBean pageBean = studentService.getPageBeanEvaluate(currentPage, pageSize, model.getId());
+		printJson(pageBean);
 	}
 	
 	// ---

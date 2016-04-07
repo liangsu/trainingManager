@@ -132,6 +132,7 @@ public class StudentAction extends BaseAction<Student> {
 	/** 个人中心页面 */
 	public String infoUI(){
 		Student student = (Student) ActionContext.getContext().getSession().get(Code.param.LOGIN_USER);
+		student = studentService.get(student.getId());
 		ActionContext.getContext().put("info", student);
 		return "infoUI";
 	}
@@ -176,12 +177,12 @@ public class StudentAction extends BaseAction<Student> {
 			}
 			//1.2自主实习校验
 			if(model.getTrainingType() == Code.param.STUDNET_TRAINING_TYPE_FREEDOM){
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getName(), "实习企业名称不能为空,");
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getAddress(), "实习企业地址不能为空,");
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getLinkerName(), "实习企业联系人不能为空,");
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getLinkerPhone(), "实习企业联系电话不能为空,");
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getTeacherName(), "实习企业指导老师不能为空,");
-				msg += ValidateUtil.isBank(model.getFreeTrainingBase().getTeacherPhone(), "实习企业指导老师电话不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getName(), "实习企业名称不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getAddress(), "实习企业地址不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getLinkerName(), "实习企业联系人不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getLinkerPhone(), "实习企业联系电话不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getTeacherName(), "实习企业指导老师不能为空,");
+				msg += ValidateUtil.isBlank(model.getFreeTrainingBase().getTeacherPhone(), "实习企业指导老师电话不能为空,");
 			}
 			//1.3校验失败
 			if(msg.length() > 0){
@@ -330,6 +331,58 @@ public class StudentAction extends BaseAction<Student> {
 		
 		putContext("info", model);
 		return "detailInfoUI";
+	}
+	
+	/** 学生完善自己的个人信息 */
+	public void selfEdit(){
+		String msg = "";
+		try {
+			//1.判断是否是修改的自己信息
+			Object obj = super.getUser();
+			if(obj instanceof Student){
+				Student user = ((Student) obj);
+				if(user.getId().intValue() != model.getId().intValue()){
+					msg = "请修改个人信息！";
+					printJson(msg);
+					return ;
+				}
+			}else{
+				msg += "教师用于不能修改学生个人信息！";
+				printJson(msg);
+				return ;
+			}
+			
+			//2.判断修改的学生是否存在
+			Student oldBean = studentService.get(model.getId());
+			if(oldBean == null){
+				msg += "你修改的信息不存在！";
+				printJson(msg);
+				return ;
+			}
+			
+			//3.校验相关字段
+			msg += ValidateUtil.isBankCard(model.getBank(), "银行卡号不正确!");
+			msg += ValidateUtil.isEmail(model.getEmail(), "邮箱不正确!");
+			msg += ValidateUtil.isMobile(model.getPhone(), "电话号码不正确!");
+			if(msg.length() > 0){
+				printJson(msg);
+				return ;
+			}
+			
+			//4.设置要修改的字段，并保存到数据库
+			oldBean.setPhone(model.getPhone());
+			oldBean.setBank(model.getBank());
+			oldBean.setAddress(model.getAddress());
+			oldBean.setEmail(model.getEmail());
+			studentService.update(oldBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "error";
+		}
+		if(msg.length() == 0){
+			msg = "ok";
+		}
+		printJson(msg);
 	}
 	
 	// ---
