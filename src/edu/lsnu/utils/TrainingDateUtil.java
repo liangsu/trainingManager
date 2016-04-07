@@ -106,7 +106,7 @@ public class TrainingDateUtil {
 	
 	public static boolean canEvaluate(Student student){
 		boolean flag = false;
-		Date now = new Date();
+		Date now = DateUtil.getNowShort();
 		if(trainingDate.getEvaluateDate() !=null
 				&& trainingDate.getEndDate() != null
 				&& trainingDate.getEvaluateDate().getTime() <= now.getTime()

@@ -13,6 +13,7 @@ import edu.lsnu.domain.PageBean;
 import edu.lsnu.domain.TrainingBase;
 import edu.lsnu.utils.DateUtil;
 import edu.lsnu.utils.TrainingDateUtil;
+import edu.lsnu.utils.ValidateUtil;
 
 @Controller
 @Scope("prototype")
@@ -88,6 +89,11 @@ public class TrainingBaseAction extends BaseAction<TrainingBase>{
 			}
 			
 			//2.校验相关字段
+			msg += ValidateUtil.isMobile(model.getLinkerPhone(), "联系电话不正确!");
+			if(msg.length() > 0){
+				printJson(msg);
+				return ;
+			}
 			
 			//3.设置相关的参数
 			model.setAddTime(new Date());
@@ -139,7 +145,14 @@ public class TrainingBaseAction extends BaseAction<TrainingBase>{
 	public void edit() throws Exception{
 		String msg = "";
 		try {
-			//1.保存到数据库
+			//1.校验字段
+			msg += ValidateUtil.isMobile(model.getLinkerPhone(), "联系电话不正确!");
+			if(msg.length() > 0){
+				printJson(msg);
+				return ;
+			}
+			
+			//2.保存到数据库
 			msg += trainingBaseService.edit(model);
 			if(msg.length() == 0){
 				msg = "ok";

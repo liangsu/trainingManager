@@ -48,7 +48,8 @@
                 				<button class="btn btn-primary btn-sm" type="submit" id="btn-search">搜索</button>
                 	</div>
                 	<div class="col-sm-6">
-                		<my:show url="/trainingBase_addUI.action" module="实训基地"><a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a></my:show>
+                		<%-- <my:show url="/trainingBase_addUI.action" module="实训基地"><a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a></my:show>--%>
+                		<a href="${rootPath }/trainingBase_addUI.action" class="btn btn-primary btn-sm pull-right">添加实习基地</a>
                 	</div>
                 </div>
                 	
@@ -62,7 +63,7 @@
                           <th class="">简要描述</th>
                           <th class="">联系人</th>
                           <th class="">联系电话</th>
-                          <th class="">去年前往实习人数</th>
+                          <th class="">前往实习人数</th>
                           <th class="">操作</th>
                         </tr>
                       </thead>

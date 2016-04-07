@@ -59,7 +59,7 @@
                           <th class="">简要描述</th>
                           <th class="">联系人</th>
                           <th class="">联系电话</th>
-                          <th class="">去年前往实习人数</th>
+                          <th class="">前往实习人数</th>
                         </tr>
                       </thead>
                       <tbody>
